@@ -26,7 +26,7 @@ const compoundInterest = (deposit, contribution, years, rate, regularidad, tempo
         year: i + 1,
         initialBalance: deposit,
         contribution: contributionTotal,
-        interest: Math.round((total - deposit- contributionTotal))
+        interest: (total - deposit- contributionTotal)
       })
     }
   }
@@ -42,12 +42,12 @@ const compoundInterest = (deposit, contribution, years, rate, regularidad, tempo
         year: i + 1,
         initialBalance: deposit,
         contribution: contributionTotal,
-        interest: Math.round((total - deposit- contributionTotal))
+        interest: (total - deposit- contributionTotal)
       })
     }
   }
 
-  return { total: Math.round(total), data };
+  return { total, data };
 }
 
 
@@ -66,7 +66,9 @@ const CalculatorCompoundInterest = () =>  {
     { year: 4, initialBalance: 1000, contribution: 4800, interest: 1075.18},
     { year: 5, initialBalance: 1000, contribution: 6000, interest: 1618.67}
     ]);
+
   const [balance, setBalance] = useState("$8,619.00")
+  const [signData, setSignData] = useState([100, "mensual", 5])
 
   const handleSubmit = ({ deposit, contribution, years, rate, regularidad, temporalidad }) => {
     const { total, data } = compoundInterest(
@@ -77,9 +79,12 @@ const CalculatorCompoundInterest = () =>  {
       regularidad,
       temporalidad
     );
+
+    setSignData([Number(contribution),regularidad,Number(years)])
   
     setBalance(formatter.format(total));
-    setChartData(data); 
+    setChartData(data);
+    console.log(chartData)
     console.log(data)
   };
   
@@ -98,10 +103,10 @@ const CalculatorCompoundInterest = () =>  {
             }}
             onSubmit={handleSubmit} 
             validationSchema={Yup.object({
-                deposit: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.'),
+                deposit: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.').max(1000000000, 'El numero no puede ser mayor a 1.000.000.000'),
                 contribution: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.'),
-                years: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.'),
-                rate: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.').min(0, 'El interes no puede ser negativo')
+                years: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.').max(50, "Por favor ingrese un numero menor a 50"),
+                rate: Yup.number().required('Campo Obligatorio').typeError('Ingrese un numero.').min(0, 'El interes no puede ser negativo').max(100, 'El interes no puede ser mayor a 100')
             })}
             >
             <Form className="space-y-4">
@@ -131,7 +136,7 @@ const CalculatorCompoundInterest = () =>  {
             </h2>) 
             : null }</div>
         </section>
-            <CompoundInterestChart data={chartData} total={balance} />
+            <CompoundInterestChart data={chartData} total={balance} signData={signData} />
     </div>
   )
 }
