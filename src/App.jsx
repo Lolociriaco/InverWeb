@@ -1,6 +1,7 @@
 import 'normalize.css';
 import './App.css'
-import CalculatorCompoundInterest from './components/CalculatorCompoundInterest.jsx';
+import CalculatorCompoundInterest from './app/calcCompoundInterest/page.jsx';
+import DollarCotization from './app/dollarCotization/DollarCotization.jsx';
 
 const App = () =>  {
   
@@ -8,6 +9,7 @@ const App = () =>  {
     <div>
       <CalculatorCompoundInterest/>
       {/*<StockData symbol="APPL"/>*/}
+      <DollarCotization/>
     </div>
   )
 }

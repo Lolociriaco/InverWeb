@@ -1,8 +1,8 @@
 import 'normalize.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Input from './Input.jsx';
-import ContributionInput from './ContributionInput.jsx';
-import CompoundInterestChart from './CompoundInterestChart.jsx';
+import Input from '../../components/calc/Input.jsx';
+import ContributionInput from '../../components/calc/ContributionInput.jsx';
+import CompoundInterestChart from '../../components/calc/CompoundInterestChart.jsx';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
@@ -67,7 +67,7 @@ const CalculatorCompoundInterest = () =>  {
     { year: 5, initialBalance: 1000, contribution: 6000, interest: 1618.67}
     ]);
 
-  const [balance, setBalance] = useState("$8,619.00")
+  const [balance, setBalance] = useState("$8,618.68")
   const [signData, setSignData] = useState([100, "mensual", 5])
 
   const handleSubmit = ({ deposit, contribution, years, rate, regularidad, temporalidad }) => {
@@ -90,8 +90,8 @@ const CalculatorCompoundInterest = () =>  {
   
 
   return (
-    <div className='flex flex-wrap justify-center h-full m-5 sm:m-20 gap-10'>
-        <section className='bg-gray-100 border border-gray-300 rounded-lg py-5  w-[800px] shadow-md px-3 sm:px-10'>
+    <div className='flex flex-wrap lg:flex-nowrap justify-center h-full m-5 md:m-20 gap-10'>
+        <section className='bg-gray-100 border border-gray-300 rounded-lg py-5  max-w-[850px] shadow-md px-3 md:px-10 h-fit'>
             <Formik
             initialValues={{
                 deposit: '1000',
@@ -124,14 +124,14 @@ const CalculatorCompoundInterest = () =>  {
                 <div className='mt-10'>
                 <button 
                 type='submit' 
-                className='block bg-yellow-300 py-2 w-full mt-10 font-bold cursor-pointer'>
+                className='block bg-yellow-300 rounded py-2 w-full mt-10 font-bold cursor-pointer'>
                     Calcular
                 </button>
                 </div>
             </Form>
             </Formik>
             <div>{balance !== "" ? 
-            (<h2 className='flex justify-center text-base font-bold py-3 mt-5 bg-gray-300 '>
+            (<h2 className='flex justify-center rounded text-base font-bold py-3 mt-5 bg-gray-300 '>
             {`TOTAL GENERADO: ${balance}`}
             </h2>) 
             : null }</div>
