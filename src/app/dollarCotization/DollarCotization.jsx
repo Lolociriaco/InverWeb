@@ -35,8 +35,8 @@ export default function() {
   return (
     <div className="w-full flex justify-center">
       { dollar.length > 0 &&
-
-      <div className="grid grid-cols-3 grid-rows-6 gap-4 px-10 py-10 max-w-[1200px] w-full">
+      <>
+      <div className="hidden lg:grid grid-cols-3 grid-rows-6 gap-4 px-10 py-10 max-w-[1200px] w-full">
           <div className="bg-gray-100 border border-gray-300 rounded-lg  row-span-6 flex justify-center flex-col items-center shadow gap-10">
             <GridDesktop dollar={dollar[1]}/>
             <h5 className="text-xs text-gray-500 -mt-6">Actualizado por última vez: {date}</h5>
@@ -61,6 +61,19 @@ export default function() {
           </div>
 
       </div>
+
+      <div className="grid grid-cols-1 grid-rows-7 lg:hidden py-10 sm:px-10 px-3 w-full gap-4">
+        {
+          dollar.map((dollar, index) => (
+            <div className="bg-gray-100 border border-gray-300 rounded-lg  flex justify-between items-center shadow sm:px-8 px-3 py-4">
+              <GridDesktop key={index} dollar={dollar}/>
+            </div>
+          ))
+        }
+
+      </div>
+
+      </>
       }
     </div>
   )
